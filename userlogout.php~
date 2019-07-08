@@ -1,0 +1,10 @@
+<?php 
+  session_start();
+  session_destroy();
+?>
+<p> You are logout! </p>
+<?php
+unset($_SESSION["logged1"]); 
+?>
+<a href="user.php">Login again</a> 
+

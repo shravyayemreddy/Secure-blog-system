@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+
+body {
+    font-family: Arial;
+    padding: 20px;
+    background: #f1f1f1;
+}
+
+
+.header {
+    padding: 30px;
+    font-size: 40px;
+    text-align: center;
+    background: white;
+}
+
+
+.rightcol
+umn {   
+    float:right;
+    width: 100%;
+}
+
+.right {
+    text-align: right;
+    float: right;
+}
+
+@media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {   
+        width: 100%;
+        padding: 0;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h2>My Blog</h2>
+</div>
+  
+<div class= "left">
+<h1>Edit Post</h1>
+</div>
+
+</div>
+<div class= "right">
+<a href= "index.php" >Home</a>
+
+
+</div>
+<?php
+  session_start();
+require 'mysql.php';
+
+$id=$_REQUEST['id'];
+if (!isset($title) and !isset($text)) {
+	$sql= "SELECT * FROM posts where id='$id'";
+	$result = $mysqli->query($sql);
+	if ($result->num_rows>0)
+	{
+
+		while($dis =  $result->fetch_assoc())
+		{
+			$posttitle = $dis["title"];
+			$posttext = $dis["text"];
+			$postenable = $dis["Enable"] == 1 ? "checked : true" : "";
+		}
+	}
+
+}
+
+?>
+<?php
+function handle_update_post($id) {
+  $title = $_POST['title'];
+  $text = $_POST['text'];
+  $enable = $_POST['enable'];
+$nocsrftoken = $_POST["nocsrftoken"];
+    $sessionnocsrftoken = $_SESSION["nocsrftoken"];
+
+if ($enable == 'on') $enable = 1;
+else $enable = 0;
+ 	
+  if (isset($title) and isset($text) ){
+if(!isset($nocsrftoken) or ($nocsrftoken!=$sessionnocsrftoken)){
+	echo "Cross-site request forgery is detected!";
+	die();
+        }
+     if(update_post($title,$text,$id,$enable))
+        echo "post has been updated ";
+      else
+	 echo "cannot update the post";
+   } else {
+	echo " no title / content";
+	}
+
+}
+handle_update_post($id);
+$rand = bin2hex(openssl_random_pseudo_bytes(16));
+  $_SESSION["nocsrftoken"] = $rand;
+?>
+
+<form action="editpost.php?id=<?php echo $id;?>" method="POST" class="form post">
+	<input type="hidden" name="nocsrftoken" value="<?php echo $rand;?>"/>
+	Title: <input type='text' name='title' value="<?php echo $posttitle;?>"/> <br>
+	Enable: <input type='checkbox' name='enable' <?php echo $postenable;?> /> <br>
+	Text: <textarea name= 'text' required cols='100' rows='10'  ><?php echo $posttext;?></textarea><br>
+	<button class='button' type='submit'>update Post</button>
+
+</form>
+
+
+

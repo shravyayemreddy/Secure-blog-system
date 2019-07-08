@@ -1,0 +1,41 @@
+Final project:
+
+
+Simple Blog System: We have developed a simple blog system which has all the security principles and free from all the vulnerabilities
+
+
+Link: https://www.sp2018secad.com/finalproject/index.php
+
+1. Index page contains all the post and  a link to post a comment.
+2. Any user can view the post  and post a comment on it. They does'nt have an access to modify the post.
+3. Index Page consist of links to register a new user or admin or a user sign in.
+
+
+New User Registration:
+
+1. If a user wants to  register they have a registration form.
+2. Each user who wants to register has to fill the mandatory information like name, username, password,email and phone.
+3. Once the user has given all the information and click submit button.
+4. A request will be sent to the Admin to approve the request of registartion.
+
+Admin page :
+
+1. Admin has a login page on the index.
+2. Once the admin has logged in securely the admin can see all the users that are present in that website 
+3. He can Approve or disapprove a request and enable and disbale the user.
+4. Once approved the user can login securely.
+
+
+User Page:
+
+1. User can log into the  blog system by securely logging in.
+2. Once the user has logged in, he can view the all his post and  he can modify the post and also  delete his own post.
+3. He can enable a post or disbale a post means if a user does'nt want the post to be shown to every one they can disbale  a post which will be only cisable to the user
+4. A user can create a new post.
+5. He can also update his information like name, phone and email address but they cannot modify the username.
+6. They can even change there password after access the accounting they can logout.
+
+
+
+
+
